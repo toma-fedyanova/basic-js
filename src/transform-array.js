@@ -13,9 +13,16 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-function transform(/* arr */) {
+function transform(arr) {
   throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+  if (!(arr instanceof Array)) new Error (`${arr} no array`)
+ let res = [];
+ for (let elem of arr) {
+  if (typeof elem == 'number' && elem < 10) {
+    res.push(elem);
+  }
+ }
+ return res;
 }
 
 module.exports = {
