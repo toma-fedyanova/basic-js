@@ -14,7 +14,7 @@ const { NotImplementedError } = require('../extensions/index.js');
 function getSeason(date) {
 
   if (date instanceof Date == false) throw new Error('invalid date');
-  
+  if (!date.toLocaleString()) return false;
   try {
   let month = date.getMonth();
   if ((month <= 1)) return 'winter';
@@ -23,7 +23,7 @@ function getSeason(date) {
   else if ((month <= 7) && (month > 4)) return 'summer';
   else if ((month <= 10) && (month > 7)) return 'autumn';}
   catch(err) {
-    return err;
+    return new Error('invalid date');
   }
   }
 
