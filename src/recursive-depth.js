@@ -14,22 +14,27 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 class DepthCalculator {
   constructor() {
-    this.value = 0;
+    this.string = '';
+    this.array = [];
     this.count = 0;
   }
   calculateDepth(arr) {
-    for (let elem of arr) {
-      if (typeof elem == 'object') {
-          this.count++;
-          this.count+=this.calculateDepth(elem);
+    this.string += JSON.stringify(arr);;
+
+    for (let i = 0; i < this.string.length; i++) {
+      if (this.string[i] == '[') {
+        this.count++;
+        this.array.push(this.count);
       }
-      else{
-        if (this.value <= this.count) {
-          this.value = this.count;
-        }
+      else if (this.string[i] == ']') {
+            this.count = 1;
       }
     }
-    return this.value + 1;
+    let num = Math.max(...this.array);
+    this.array = [];
+    this.string = '';
+    this.count = 0;
+    return num;
   }
 }
 
